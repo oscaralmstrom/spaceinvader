@@ -44,7 +44,7 @@ public class ShipFormation {
         return false;
     }
 
-    public void removeShipOnHit(IPositionable proj) {
+    public void removeShipOnHit(Projectile proj) {
         if (proj.getSender().equals(AbstractSpaceShip.getSender())) {
             return;
         }
