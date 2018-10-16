@@ -31,21 +31,19 @@ public class SpaceInv {
     public static final long ONE_SEC = 1_000_000_000;
     public static final long HALF_SEC = 500_000_000;
     public static final long TENTH_SEC = 100_000_000;
+    private boolean IS_RUNNING;
 
     // TODO
     //private final List<AbstractSpaceShip> ships;
 
     // TODO
-    /*private final Ground ground;           // Border for bombs
+    private final Ground ground;           // Border for bombs
     private final OuterSpace outerSpace;   // Border for rocket
     private final Gun gun;
     private final ShipFormation formation;
-    */
 
-    private Rocket rocket;
     private int points;
-
-
+    private final List<Projectile> projectiles;
 
     // Timing. All timing handled here!
     private long timeForLastMove;
