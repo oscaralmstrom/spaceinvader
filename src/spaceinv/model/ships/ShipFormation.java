@@ -28,7 +28,9 @@ public class ShipFormation {
 
 
     // TODO Some method to reove ship hit by rocket
-
+    public void ckeckHit(){
+        
+    }
 
 
 
