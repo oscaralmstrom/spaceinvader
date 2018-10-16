@@ -120,19 +120,19 @@ public class SpaceInv {
     // ---------- Interaction with GUI  -------------------------
 
     public void fireGun() {
-       // TODO
+        gun.fire();
     }
 
     public void moveGunLeft() {
-        // TODO
+        gun.setSpeed(-gun.MAX_SPEED, 0);
     }
 
     public void moveGunRight() {
-        // TODO
+        gun.setSpeed(gun.getSpeedX(), 0);
     }
 
     public void stopGun() {
-       // TODO
+        gun.setSpeed(0, 0);
     }
 
     // --------- Send everything to be rendered --------------
