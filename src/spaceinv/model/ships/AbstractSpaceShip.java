@@ -41,7 +41,7 @@ public abstract class AbstractSpaceShip extends Movable {
         return SHIP_HEIGHT;
     }
 
-    public static Projectile.Sender getSenderType() {
+    public static Projectile.Sender getSender() {
         return senderType;
     }
 
