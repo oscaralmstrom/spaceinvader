@@ -12,7 +12,7 @@ public class Bomber extends AbstractSpaceShip {
     }
 
     public Bomb createBomb() {
-        return new Bomb(getX(), getY(), getSenderType());
+        return new Bomb(getX(), getY(), getSender());
     }
 
     @Override
