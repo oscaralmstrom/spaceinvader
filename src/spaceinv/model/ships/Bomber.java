@@ -6,10 +6,14 @@ import spaceinv.model.projectiles.Bomb;
  *   Type of space ship
  */
 public class Bomber extends AbstractSpaceShip {
-//    public Bomb createBomb{
-//
-//        return new Bomb(getX(), getY());
-//    }
+
+    public Bomber(double _posX, double _posY) {
+        super(_posX, _posY);
+    }
+
+    public Bomb createBomb() {
+        return new Bomb(getX(), getY());
+    }
 
     @Override
     public int getPoints() {
