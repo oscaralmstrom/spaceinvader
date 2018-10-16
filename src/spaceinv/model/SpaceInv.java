@@ -42,6 +42,7 @@ public class SpaceInv {
     private final OuterSpace outerSpace;   // Border for rocket
     private final Gun gun;
     private final ShipFormation formation;
+    private double formationSpeed;
 
     private int points;
     private final List<Projectile> projectiles;
@@ -54,6 +55,7 @@ public class SpaceInv {
     public SpaceInv(List<AbstractSpaceShip> spaceShips, Gun theGun, Ground _ground, OuterSpace backGround) {
         gun = theGun;
         formation = new ShipFormation(spaceShips);
+        formationSpeed = 10;
         ground = _ground;
         outerSpace = backGround;
         projectiles = new ArrayList<>();
@@ -73,7 +75,7 @@ public class SpaceInv {
         }
         gun.decCooldown();
 
-        formation.move();
+        formation.move(formationSpeed);
 
         for (int i = projectiles.size() - 1; i >= 0; i--) {
             if (movesOutOfWindow(projectiles.get(i))) {
