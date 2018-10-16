@@ -64,6 +64,39 @@ public class SpaceInv {
 
     public void update(long now) {
         // TODO the game loop
+        if (!movesOutOfWindow(gun)) {
+            gun.move();
+        } else {
+            if (gun.getX() > GAME_WIDTH / 2) {
+                gun.setPosision(GAME_WIDTH - gun.getWidth(), gun.getY());
+            }
+        }
+        gun.decCooldown();
+
+        formation.move();
+
+        for (int i = projectiles.size() - 1; i >= 0; i--) {
+            if (movesOutOfWindow(projectiles.get(i))) {
+                projectiles.remove(i);
+                continue;
+            }
+
+            projectiles.get(i).move();
+
+            if (projectiles.get(i).isColiding(gun)) {
+                gun.hit();
+                projectiles.remove(i);
+            } else if (formation.ckeckHit(projectiles.get(i))) {
+                //TODO If projectile was a bomb, trigger explosion here
+                formation.removeShipOnHit(projectiles.get(i));
+            }
+        }
+
+        if (gun.getHealth() <= 0) {
+            IS_RUNNING = false;
+            return;
+        }
+    }
 
     }
 
