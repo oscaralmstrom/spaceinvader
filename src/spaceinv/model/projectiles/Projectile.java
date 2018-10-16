@@ -14,4 +14,8 @@ public abstract class Projectile extends Movable {
     public enum Sender {
         GUN, INVADER;
     }
+
+    public Sender getSender() {
+        return sender;
+    }
 }
