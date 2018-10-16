@@ -51,6 +51,11 @@ public class Gun extends Movable {
     public int getHealth() {
         return health;
     }
+
+    public void hit() {
+        health--;
+    }
+
     @Override
     public double getWidth() {
         return GUN_WIDTH;
