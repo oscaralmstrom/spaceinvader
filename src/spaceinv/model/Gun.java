@@ -12,6 +12,8 @@ import static spaceinv.model.SpaceInv.GAME_WIDTH;
 public class Gun extends Movable {
 
     public static final double MAX_SPEED = 2;
+    private static final double GUN_WIDTH = 42;
+    private static final double GUN_HEIGHT = 55;
 
     Gun(double x, double y) {
         super(x, y);
@@ -25,11 +27,11 @@ public class Gun extends Movable {
 
     @Override
     public double getWidth() {
-        return 0;
+        return GUN_WIDTH;
     }
 
     @Override
     public double getHeight() {
-        return 0;
+        return GUN_HEIGHT;
     }
 }
