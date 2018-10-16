@@ -16,15 +16,32 @@ public class Gun extends Movable {
     private static final double GUN_WIDTH = 42;
     private static final double GUN_HEIGHT = 55;
     private static final Projectile.Sender senderType = Projectile.Sender.GUN;
+    private static final int maxCooldow = 20; //amount of cycles until gun can be fired again
+    private int currentCooldown;
 
     public Gun(double x, double y) {
         super(x, y);
+        currentCooldown = 0;
     }
 
+    //fire will return null of the gun has not cooled down yet
     public Movable fire() {
+        if (currentCooldown > 0) {
+            return null;
+        }
+
         Movable shot = new Rocket(getSpeedX(), getSpeedY(), senderType);
         shot.setSpeed(0, Rocket.MAX_SPEED);
+
+        currentCooldown = maxCooldow;
+
         return shot;
+    }
+
+    public void decCooldown() {
+        if (currentCooldown > 0) {
+            currentCooldown--;
+        }
     }
 
     @Override
