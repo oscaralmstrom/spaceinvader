@@ -7,6 +7,8 @@ import spaceinv.model.Movable;
 public class Rocket extends Movable {
 
     public static final double MAX_SPEED = 20;
+    private static final double ROCKET_WIDTH = 13;
+    private static final double ROCKET_HEIGHT = 35;
 
     public Rocket(double x, double y) {
         super(x, y);
@@ -14,11 +16,11 @@ public class Rocket extends Movable {
 
     @Override
     public double getWidth() {
-        return 0;
+        return ROCKET_WIDTH;
     }
 
     @Override
     public double getHeight() {
-        return 0;
+        return ROCKET_HEIGHT;
     }
 }
