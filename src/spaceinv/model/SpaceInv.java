@@ -3,6 +3,7 @@ package spaceinv.model;
 import spaceinv.event.Event;
 import spaceinv.event.EventService;
 import spaceinv.model.levels.ILevel;
+import spaceinv.model.projectiles.Projectile;
 import spaceinv.model.projectiles.Rocket;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.ShipFormation;
@@ -49,6 +50,15 @@ public class SpaceInv {
     private long timeForLastMove;
     private long timeForlastFire;
     private long shipMoveDelay = TENTH_SEC;
+
+    public SpaceInv(List<AbstractSpaceShip> spaceShips, Gun theGun, Ground _ground, OuterSpace backGround) {
+        gun = theGun;
+        formation = new ShipFormation(spaceShips);
+        ground = _ground;
+        outerSpace = backGround;
+        projectiles = new ArrayList<>();
+        IS_RUNNING = true;
+    }
 
     // ------ Game loop (called by timer) -----------------
 
