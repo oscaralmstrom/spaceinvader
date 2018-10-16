@@ -12,14 +12,9 @@ import static spaceinv.model.SpaceInv.GAME_WIDTH;
  */
 public class Ground implements IPositionable {
 
-    private static double width = GAME_WIDTH;
-    private static double height = GAME_WIDTH / 40;
-    private static double X, Y;
-
-    public Ground() {
-        X = 0;
-        Y = GAME_HEIGHT - height;
-    }
+    private static final double width = GAME_WIDTH;
+    private static final double height = GAME_WIDTH / 40;
+    private static final double X = 0, Y = GAME_HEIGHT - height;
 
     @Override
     public double getX() {
