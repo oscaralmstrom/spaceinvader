@@ -17,7 +17,7 @@ public class Gun extends Movable {
         super(x, y);
     }
 
-    public Movable shoot() {
+    public Movable fire() {
         Movable shot = new Rocket(getSpeedX(), getSpeedY());
         shot.setSpeed(0, Rocket.MAX_SPEED);
         return shot;
