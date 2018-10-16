@@ -139,10 +139,12 @@ public class SpaceInv {
 
     public List<IPositionable> getPositionables() {
         List<IPositionable> ps = new ArrayList<>();
-       // TODO Add all to be rendered
-        if (rocket != null) {
-            // TODO posables.add(rocket);
-        }
+        ps.add(gun);
+        ps.addAll(formation.getShips());
+        ps.add(ground);
+        ps.addAll(projectiles);
+        ps.add(outerSpace);
+
         return ps;
     }
 
