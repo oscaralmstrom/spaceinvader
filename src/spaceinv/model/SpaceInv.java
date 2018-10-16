@@ -152,5 +152,9 @@ public class SpaceInv {
         return points;
     }
 
+    public boolean getIsRunning() {
+        return IS_RUNNING;
+    }
+
 
 }
