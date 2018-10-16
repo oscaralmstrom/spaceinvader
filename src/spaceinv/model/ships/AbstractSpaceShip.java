@@ -1,6 +1,7 @@
 package spaceinv.model.ships;
 
 import spaceinv.model.Movable;
+import spaceinv.model.projectiles.Projectile;
 
 import java.util.Random;
 
@@ -13,8 +14,9 @@ import java.util.Random;
 
 public abstract class AbstractSpaceShip extends Movable {
 
-    public static final double SHIP_WIDTH = 40;
-    public static final double SHIP_HEIGHT = 30;
+    private final static Projectile.Sender senderType = Projectile.Sender.INVADER;
+    private static final double SHIP_WIDTH = 40;
+    private static final double SHIP_HEIGHT = 30;
 
     private static Random rand = new Random();   // TODO
 
@@ -39,9 +41,20 @@ public abstract class AbstractSpaceShip extends Movable {
         return SHIP_HEIGHT;
     }
 
+    public static Projectile.Sender getSenderType() {
+        return senderType;
+    }
+
+    public static double getShipWidth() {
+        return SHIP_WIDTH;
+    }
+
+    public static double getShipHeight() {
+        return SHIP_HEIGHT;
+    }
     // For ships moving back and forth
     //public void setMoveInterval(double minX, double maxX) {
-        // TODO
+    // TODO
     //}
 
 }

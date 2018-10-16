@@ -7,13 +7,12 @@ import spaceinv.model.projectiles.Projectile;
  *   Type of space ship
  */
 public class Bomber extends AbstractSpaceShip {
-    private final static Projectile.Sender senderType = Projectile.Sender.INVADER;
     public Bomber(double _posX, double _posY) {
         super(_posX, _posY);
     }
 
     public Bomb createBomb() {
-        return new Bomb(getX(), getY(), senderType);
+        return new Bomb(getX(), getY(), getSenderType());
     }
 
     @Override
