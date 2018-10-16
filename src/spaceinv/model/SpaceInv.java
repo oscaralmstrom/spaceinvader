@@ -98,7 +98,20 @@ public class SpaceInv {
         }
     }
 
+    //-------Helping methods--------------------------
+
+    //Returns true if the object will move out of window
+    public boolean movesOutOfWindow(Movable obj) {
+        if (obj.getX() + obj.getSpeedX() + obj.getWidth() > GAME_WIDTH || obj.getX() + obj.getSpeedX() < 0) {
+            return true;
+        }
+
+        if (obj.getSpeedY() + obj.getSpeedY() + obj.getHeight() > GAME_HEIGHT || obj.getY() + obj.getSpeedY() < 0) {
+            return true;
+        }
+        return false;
     }
+
 
     // ------------- Increase pressure on player
     private boolean finalSpeed = false;
