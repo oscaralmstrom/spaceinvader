@@ -16,18 +16,22 @@ public class ShipFormation {
 
     private final double PADDING_LEFT = 100;
     private final double PADDING_RIGHT = GAME_WIDTH - PADDING_LEFT;
+    private final double DOWN_STEP = 30;
 
     private static final Random rand = new Random();
     private final List<AbstractSpaceShip> ships;
-    private int indexToMove;
+    private Direction moveDir;
 
     public ShipFormation(List<AbstractSpaceShip> ships) {
         this.ships = ships;
-        indexToMove = ships.size() - 1;
+        moveDir = Direction.RIGHT;
     }
 
     // TODO Some method to move the ships
 
+    enum Direction {
+        RIGHT, LEFT;
+    }
 
     // TODO Some method to reove ship hit by rocket
     public boolean ckeckHit(Projectile proj) {
