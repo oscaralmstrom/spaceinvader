@@ -1,6 +1,8 @@
 package spaceinv.model.ships;
 
 
+import spaceinv.model.IPositionable;
+import spaceinv.model.projectiles.Projectile;
 
 import java.util.List;
 import java.util.Random;
@@ -28,10 +30,31 @@ public class ShipFormation {
 
 
     // TODO Some method to reove ship hit by rocket
-    public void ckeckHit(){
-        
+    public boolean ckeckHit(Projectile proj) {
+
+        if (proj.getSender().equals(AbstractSpaceShip.getSender())) {
+            return false;
+        }
+
+        for (AbstractSpaceShip ship : ships) {
+            if (ship.isColiding(proj)) {
+                return true;
+            }
+        }
+        return false;
     }
 
+    public void removeShipOnHit(IPositionable proj) {
+        if (proj.getSender().equals(AbstractSpaceShip.getSender())) {
+            return;
+        }
+
+        for (int i = ships.size() - 1; i <= 0; i--) {
+            if (ships.get(i).isColiding(proj)) {
+                ships.remove(i);
+            }
+        }
+    }
 
 
     public int size() {
