@@ -28,6 +28,58 @@ public class ShipFormation {
     }
 
     // TODO Some method to move the ships
+    public void move(double moveSpeed) {
+
+        switch (moveDir) {
+            case RIGHT:
+                moveSpeed = Math.abs(moveSpeed);
+
+                if (movesOutOfWindow(moveSpeed)) {
+                    stepDown();
+                    moveDir = Direction.LEFT;
+                } else {
+                    moveAllX(moveSpeed);
+                }
+                break;
+            case LEFT:
+                moveSpeed = -Math.abs(moveSpeed);
+
+                if (movesOutOfWindow(-moveSpeed)) {
+                    stepDown();
+                    moveDir = Direction.RIGHT;
+                } else {
+                    moveAllX(moveSpeed);
+                }
+                break;
+        }
+
+    }
+
+    private boolean movesOutOfWindow(double speedX) {
+        for (AbstractSpaceShip ship : ships) {
+            if (ship.getX() + ship.getWidth() + speedX > GAME_WIDTH || ship.getX() + speedX < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void stepDown() {
+
+        for (AbstractSpaceShip ship : ships) {
+            ship.setSpeed(0, DOWN_STEP);
+            ship.move();
+            ship.setSpeed(0, 0);
+        }
+    }
+
+    private void moveAllX(double speedX) {
+        for (AbstractSpaceShip ship : ships) {
+            ship.setSpeed(speedX, 0);
+            ship.move();
+            ship.setSpeed(0, 0);
+        }
+    }
 
     enum Direction {
         RIGHT, LEFT;
