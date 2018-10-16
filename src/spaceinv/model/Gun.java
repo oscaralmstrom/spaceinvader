@@ -17,11 +17,15 @@ public class Gun extends Movable {
     private static final double GUN_HEIGHT = 55;
     private static final Projectile.Sender senderType = Projectile.Sender.GUN;
     private static final int maxCooldow = 20; //amount of cycles until gun can be fired again
+    private static final int startHealth = 3;
+
+    private int health;
     private int currentCooldown;
 
     public Gun(double x, double y) {
         super(x, y);
         currentCooldown = 0;
+        health = startHealth;
     }
 
     //fire will return null of the gun has not cooled down yet
@@ -44,6 +48,9 @@ public class Gun extends Movable {
         }
     }
 
+    public int getHealth() {
+        return health;
+    }
     @Override
     public double getWidth() {
         return GUN_WIDTH;
