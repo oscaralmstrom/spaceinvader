@@ -33,7 +33,7 @@ public class SpaceInvMenu extends MenuBar {
         return menuFile;
     }
 
-   private Menu createMenuMusic() {
+    private Menu createMenuMusic() {
         Menu menuMusic = new Menu("Music");
         ToggleGroup toggleGroup = new ToggleGroup();
         RadioMenuItem play = new RadioMenuItem("Play");
