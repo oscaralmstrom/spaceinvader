@@ -29,12 +29,12 @@ public class Gun extends Movable {
     }
 
     //fire will return null of the gun has not cooled down yet
-    public Movable fire() {
+    public Projectile fire() {
         if (currentCooldown > 0) {
             return null;
         }
 
-        Movable shot = new Rocket(getSpeedX(), getSpeedY(), senderType);
+        Projectile shot = new Rocket(getSpeedX(), getSpeedY(), senderType);
         shot.setSpeed(0, Rocket.MAX_SPEED);
 
         currentCooldown = maxCooldow;
