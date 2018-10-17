@@ -30,6 +30,8 @@ public abstract class AbstractSpaceShip extends Movable {
     // To be overridden
     public abstract int getPoints();
 
+    public abstract Projectile fire();
+
     // To be overridden
     public abstract Object copyOf();
 
