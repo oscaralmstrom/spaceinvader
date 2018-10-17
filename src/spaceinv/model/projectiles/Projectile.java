@@ -9,8 +9,10 @@ public abstract class Projectile extends Movable {
     public Projectile(double x, double y, Sender _sender, double maxSpeed) {
         super(x, y);
         sender = _sender;
-        if (sender == Sender.INVADER){
+        if (sender == Sender.INVADER) {
             setSpeed(0, maxSpeed);
+        } else {
+            setSpeed(0, -maxSpeed);
         }
 
     }
