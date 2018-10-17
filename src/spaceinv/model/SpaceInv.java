@@ -130,7 +130,7 @@ public class SpaceInv {
     }
 
     public void moveGunRight() {
-        gun.setSpeed(gun.getSpeedX(), 0);
+        gun.setSpeed(gun.MAX_SPEED, 0);
     }
 
     public void stopGun() {
