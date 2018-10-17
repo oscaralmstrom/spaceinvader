@@ -111,11 +111,12 @@ public class SpaceInv {
             }
         }
 
+        //TODO check if ships hit the ground
         if (gun.getHealth() <= 0) {
             gameState = GameState.LOOSE;
             return;
         }
-        else if(projectiles.size() == 0)
+        else if(formation.size() == 0)
         {
             gameState = GameState.WIN;
         }
