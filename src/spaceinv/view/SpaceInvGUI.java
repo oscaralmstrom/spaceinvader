@@ -113,8 +113,9 @@ public class SpaceInvGUI extends Application {
         OuterSpace os = new OuterSpace();
         Gun gun = new Gun(GAME_WIDTH / 2, GAME_HEIGHT - 75);
         List<AbstractSpaceShip> ships = new ArrayList<>();
-        ships.add(new Bomber(40, 20));
-
+        for (int i = 1; i<10; i++){
+            ships.add(new Bomber(40*i +10, 20));
+        }
         spaceInv = new SpaceInv(ships, gun, g, os);
 
         renderBackground();
