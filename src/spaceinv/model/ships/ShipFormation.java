@@ -114,7 +114,7 @@ public class ShipFormation {
             return;
         }
 
-        for (int i = ships.size() - 1; i <= 0; i--) {
+        for (int i = ships.size() - 1; i >= 0; i--) {
             if (ships.get(i).isColiding(proj)) {
                 ships.remove(i);
             }
