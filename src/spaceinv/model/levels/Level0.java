@@ -1,4 +1,4 @@
-package spaceinv.model.levels;
+/*package spaceinv.model.levels;
 
 
 
@@ -12,11 +12,12 @@ import spaceinv.model.statics.OuterSpace;
 import java.util.List;
 
 import static spaceinv.model.levels.LevelUtils.*;
-
+*/
 /*
     Basic level to test ships and movement of
 
  */
+/*
 public class Level0 implements ILevel {
 
     private final List<AbstractSpaceShip> ships =
@@ -46,3 +47,4 @@ public class Level0 implements ILevel {
     }
 
 }
+*/
