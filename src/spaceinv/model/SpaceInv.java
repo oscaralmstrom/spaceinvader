@@ -55,7 +55,7 @@ public class SpaceInv {
     public SpaceInv(List<AbstractSpaceShip> spaceShips, Gun theGun, Ground _ground, OuterSpace backGround) {
         gun = theGun;
         formation = new ShipFormation(spaceShips);
-        formationSpeed = 10;
+        formationSpeed = 2;
         ground = _ground;
         outerSpace = backGround;
         projectiles = new ArrayList<>();
@@ -74,8 +74,12 @@ public class SpaceInv {
             }
         }
         gun.decCooldown();
-
+        Projectile temp = formation.spawnInvaderProjectiles();
+        if (temp != null) {
+            projectiles.add(temp);
+        }
         formation.move(formationSpeed);
+
 
         for (int i = projectiles.size() - 1; i >= 0; i--) {
             if (movesOutOfWindow(projectiles.get(i))) {
