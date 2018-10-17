@@ -34,8 +34,8 @@ public class Gun extends Movable {
             return null;
         }
 
-        Projectile shot = new Rocket(getSpeedX(), getSpeedY(), senderType);
-        shot.setSpeed(0, Rocket.MAX_SPEED);
+        Projectile shot = new Rocket(getX(), getY(), senderType);
+        shot.setSpeed(0, -Rocket.MAX_SPEED);
 
         currentCooldown = maxCooldow;
 
