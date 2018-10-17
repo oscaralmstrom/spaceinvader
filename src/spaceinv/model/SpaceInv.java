@@ -78,19 +78,32 @@ public class SpaceInv {
         formation.move(formationSpeed);
 
         for (int i = projectiles.size() - 1; i >= 0; i--) {
-            if (movesOutOfWindow(projectiles.get(i))) {
-                projectiles.remove(i);
-                continue;
-            }
-
             projectiles.get(i).move();
 
-            if (projectiles.get(i).isColiding(gun)) {
-                gun.hit();
-                projectiles.remove(i);
-            } else if (formation.ckeckHit(projectiles.get(i))) {
-                //TODO If projectile was a bomb, trigger explosion here
-                formation.removeShipOnHit(projectiles.get(i));
+            switch (projectiles.get(i).getSender()) {
+                case GUN:
+                    if (projectiles.get(i).isColiding(outerSpace)) {
+                        projectiles.remove(i);
+                        continue;
+                    }
+
+                    if (formation.ckeckHit(projectiles.get(i))) {
+                        //TODO If projectile was a bomb, trigger explosion here
+                        formation.removeShipOnHit(projectiles.get(i));
+                    }
+
+                    break;
+                case INVADER:
+                    if (projectiles.get(i).isColiding(ground)) {
+                        projectiles.remove(i);
+                        continue;
+                    }
+
+                    if (projectiles.get(i).isColiding(gun)) {
+                        gun.hit();
+                        projectiles.remove(i);
+                    }
+                    break;
             }
         }
 
