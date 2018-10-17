@@ -182,7 +182,7 @@ public class SpaceInv {
         return gameState;
     }
 
-    enum GameState{
+    public enum GameState{
         RUNNING, WIN, LOOSE;
     }
 
