@@ -88,14 +88,14 @@ public class SpaceInv {
                 case GUN:
                     if (projectiles.get(i).isColiding(outerSpace)) {
                         projectiles.remove(i);
-                        continue;
+                        break;
                     }
 
                     if (formation.ckeckHit(projectiles.get(i))) {
                         //TODO If projectile was a bomb, trigger explosion here
                         formation.removeShipOnHit(projectiles.get(i));
+                        projectiles.remove(i);
                     }
-
                     break;
                 case INVADER:
                     if (projectiles.get(i).isColiding(ground)) {
