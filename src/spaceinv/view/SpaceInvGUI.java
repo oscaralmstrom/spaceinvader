@@ -16,8 +16,17 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import spaceinv.event.Event;
 import spaceinv.event.EventService;
+import spaceinv.model.Gun;
 import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
+import spaceinv.model.projectiles.Projectile;
+import spaceinv.model.ships.AbstractSpaceShip;
+import spaceinv.model.ships.Bomber;
+import spaceinv.model.statics.Ground;
+import spaceinv.model.statics.OuterSpace;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static spaceinv.model.SpaceInv.GAME_HEIGHT;
 import static spaceinv.model.SpaceInv.GAME_WIDTH;
@@ -48,13 +57,13 @@ public class SpaceInvGUI extends Application {
         KeyCode kc = event.getCode();
         switch (kc) {
             case LEFT:
-                // TODO
+                spaceInv.moveGunLeft();
                 break;
             case RIGHT:
-                // TODO
+                spaceInv.moveGunRight();
                 break;
             case SPACE:
-                // TODO
+                spaceInv.fireGun();
                 break;
             default:  // Nothing
         }
@@ -68,7 +77,7 @@ public class SpaceInvGUI extends Application {
         switch (kc) {
             case LEFT:
             case RIGHT:
-                // TODO
+                spaceInv.stopGun();
                 break;
             default: // Nothing
         }
@@ -100,6 +109,13 @@ public class SpaceInvGUI extends Application {
     private void newGame() {
 
         //spaceInv = // TODO Create the OO model by using a Level parameter
+        Ground g = new Ground();
+        OuterSpace os = new OuterSpace();
+        Gun gun = new Gun(GAME_WIDTH / 2, GAME_HEIGHT - 75);
+        List<AbstractSpaceShip> ships = new ArrayList<>();
+        ships.add(new Bomber(40, 20));
+
+        spaceInv = new SpaceInv(ships, gun, g, os);
 
         renderBackground();
         timer.start();
@@ -185,6 +201,11 @@ public class SpaceInvGUI extends Application {
                 Event e = EventService.remove();
                 if (e != null) {
                     SpaceInvGUI.this.handleModelEvent(e);
+                }
+                //TODO Add stop to game
+                if (!spaceInv.getIsRunning()) {
+                    timer.stop();
+                    running = false;
                 }
 
             }
