@@ -122,7 +122,10 @@ public class SpaceInv {
     // ---------- Interaction with GUI  -------------------------
 
     public void fireGun() {
-        gun.fire();
+        Projectile shot = gun.fire();
+        if (shot != null) {
+            projectiles.add(shot);
+        }
     }
 
     public void moveGunLeft() {
