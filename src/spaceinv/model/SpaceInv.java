@@ -32,7 +32,7 @@ public class SpaceInv {
     public static final long ONE_SEC = 1_000_000_000;
     public static final long HALF_SEC = 500_000_000;
     public static final long TENTH_SEC = 100_000_000;
-    private boolean IS_RUNNING;
+    private GameState gameState;
 
     // TODO
     //private final List<AbstractSpaceShip> ships;
@@ -59,7 +59,7 @@ public class SpaceInv {
         ground = _ground;
         outerSpace = backGround;
         projectiles = new ArrayList<>();
-        IS_RUNNING = true;
+        gameState = GameState.RUNNING;
     }
 
     // ------ Game loop (called by timer) -----------------
@@ -112,8 +112,12 @@ public class SpaceInv {
         }
 
         if (gun.getHealth() <= 0) {
-            IS_RUNNING = false;
+            gameState = GameState.LOOSE;
             return;
+        }
+        else if(projectiles.size() == 0)
+        {
+            gameState = GameState.WIN;
         }
     }
 
@@ -174,9 +178,12 @@ public class SpaceInv {
         return points;
     }
 
-    public boolean getIsRunning() {
-        return IS_RUNNING;
+    public GameState getGameState() {
+        return gameState;
     }
 
+    enum GameState{
+        RUNNING, WIN, LOOSE;
+    }
 
 }
