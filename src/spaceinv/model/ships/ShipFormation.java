@@ -2,6 +2,7 @@ package spaceinv.model.ships;
 
 
 import spaceinv.model.IPositionable;
+import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.projectiles.Projectile;
 
 import java.util.List;
@@ -54,6 +55,13 @@ public class ShipFormation {
                 break;
         }
 
+    }
+
+    public Projectile spawnInvaderProjectiles() {
+        if (rand.nextDouble() < 0.01) {
+            return ships.get(rand.nextInt(ships.size())).fire();
+        }
+        return null;
     }
 
     private boolean movesOutOfWindow(double speedX) {

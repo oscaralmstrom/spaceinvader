@@ -11,7 +11,7 @@ public class Rocket extends Projectile {
     private static final double ROCKET_HEIGHT = 35;
 
     public Rocket(double x, double y, Sender sender) {
-        super(x, y, sender);
+        super(x, y, sender, MAX_SPEED);
     }
 
     @Override
