@@ -36,7 +36,7 @@ public class SpaceInv {
     private final Ground ground;           // Border for bombs
     private final OuterSpace outerSpace;   // Border for rocket
     private final Gun gun;
-    private final ShipFormation formation;
+    private ShipFormation formation;
     private double formationSpeed;
 
     private int points;
@@ -159,6 +159,13 @@ public class SpaceInv {
     }
 
     // --------- Send everything to be rendered --------------
+
+    public void newFormation(ShipFormation form) {
+        if (form != null) {
+            formation = form;
+            gameState = GameState.RUNNING;
+        }
+    }
 
     public List<IPositionable> getPositionables() {
         List<IPositionable> ps = new ArrayList<>();
