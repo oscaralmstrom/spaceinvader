@@ -19,6 +19,7 @@ import spaceinv.event.EventService;
 import spaceinv.model.Gun;
 import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
+import spaceinv.model.levels.Level0;
 import spaceinv.model.projectiles.Projectile;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.Bomber;
@@ -109,14 +110,8 @@ public class SpaceInvGUI extends Application {
     private void newGame() {
 
         //spaceInv = // TODO Create the OO model by using a Level parameter
-        Ground g = new Ground();
-        OuterSpace os = new OuterSpace();
-        Gun gun = new Gun(GAME_WIDTH / 2, GAME_HEIGHT - 75);
-        List<AbstractSpaceShip> ships = new ArrayList<>();
-        for (int i = 1; i<10; i++){
-            ships.add(new Bomber(40*i +10, 20));
-        }
-        spaceInv = new SpaceInv(ships, gun, g, os);
+
+        spaceInv = new SpaceInv(new Level0());
 
         renderBackground();
         timer.start();
