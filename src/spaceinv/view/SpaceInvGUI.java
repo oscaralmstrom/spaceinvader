@@ -12,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import spaceinv.event.Event;
@@ -19,6 +20,7 @@ import spaceinv.event.EventService;
 import spaceinv.model.Gun;
 import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
+import spaceinv.model.levels.ILevel;
 import spaceinv.model.levels.Level0;
 import spaceinv.model.projectiles.Projectile;
 import spaceinv.model.ships.AbstractSpaceShip;
@@ -26,7 +28,9 @@ import spaceinv.model.ships.Bomber;
 import spaceinv.model.statics.Ground;
 import spaceinv.model.statics.OuterSpace;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 import static spaceinv.model.SpaceInv.GAME_HEIGHT;
@@ -48,6 +52,7 @@ public class SpaceInvGUI extends Application {
 
     private SpaceInv spaceInv;          // Reference to the OO model
     private boolean running = false;    // Is game running?
+    private Deque<ILevel> levels = new ArrayDeque<>();
 
     // ------- Keyboard handling ----------------------------------
 
@@ -109,9 +114,13 @@ public class SpaceInvGUI extends Application {
 
     private void newGame() {
 
+        levels.clear();
+        levels.push(new Level0());
+        levels.push(new Level0());
+
         //spaceInv = // TODO Create the OO model by using a Level parameter
 
-        spaceInv = new SpaceInv(new Level0());
+        spaceInv = new SpaceInv(levels.pop());
 
         renderBackground();
         timer.start();
@@ -126,6 +135,42 @@ public class SpaceInvGUI extends Application {
 
     private void toggleMusic() {
         // TODO
+    }
+
+    private void gameEnded() {
+        switch (spaceInv.getGameState()) {
+            case RUNNING:
+                break;
+            case WIN:
+                if (!levels.isEmpty()) {
+                    spaceInv.newFormation(levels.pop().getFormation());
+                    break;
+                }
+            case LOOSE:
+                stopGame();
+                showResults();
+        }
+    }
+
+    private void showResults() {
+        /*fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        for (IPositionable d : spaceInv.getPositionables()) {
+            Image i = Assets.INSTANCE.get(d.getClass());
+            fg.drawImage(i, d.getX(), d.getY(), d.getWidth(), d.getHeight());
+        }*/
+        Image i = Assets.INSTANCE.get(OuterSpace.class);
+        fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);    // Clear everything
+        fg.drawImage(i, 0, 0, GAME_WIDTH, GAME_HEIGHT);
+        fg.setFont(Font.font("Areal", 40));
+        fg.setTextAlign(javafx.scene.text.TextAlignment.CENTER);
+
+        if (spaceInv.getGameState() == SpaceInv.GameState.WIN) {
+            fg.setFill(Color.GREEN);
+            fg.fillText("You won!\nYour score was: " + spaceInv.getPoints(), GAME_WIDTH / 2, GAME_HEIGHT / 2);
+        } else {
+            fg.setFill(Color.RED);
+            fg.fillText("You loose!\nYour score was: " + spaceInv.getPoints(), GAME_WIDTH / 2, GAME_HEIGHT / 2);
+        }
     }
 
     // --- Handling events coming form the model -----
@@ -203,7 +248,6 @@ public class SpaceInvGUI extends Application {
                     timer.stop();
                     running = false;
                 }
-
             }
         };
 
