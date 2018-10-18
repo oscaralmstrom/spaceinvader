@@ -1,10 +1,6 @@
 package spaceinv.model;
 
-import spaceinv.event.Event;
-import spaceinv.event.EventService;
-import spaceinv.model.levels.ILevel;
 import spaceinv.model.projectiles.Projectile;
-import spaceinv.model.projectiles.Rocket;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
@@ -12,8 +8,6 @@ import spaceinv.model.statics.OuterSpace;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static spaceinv.model.Gun.MAX_SPEED;
 
 /*
  * Logic for the SpaceInv Game
@@ -70,7 +64,7 @@ public class SpaceInv {
             gun.move();
         } else {
             if (gun.getX() > GAME_WIDTH / 2) {
-                gun.setPosision(GAME_WIDTH - gun.getWidth(), gun.getY());
+                gun.setPosition(GAME_WIDTH - gun.getWidth(), gun.getY());
             }
         }
         gun.decCooldown();

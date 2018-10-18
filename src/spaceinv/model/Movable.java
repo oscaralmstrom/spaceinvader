@@ -17,7 +17,7 @@ public abstract class Movable implements IPositionable {
         speedY = _speedY;
     }
 
-    public void setPosision(double _posX, double _posY){
+    public void setPosition(double _posX, double _posY){
         posX = _posX;
         posY = _posY;
     }
