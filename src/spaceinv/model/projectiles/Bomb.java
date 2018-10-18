@@ -11,7 +11,7 @@ public class Bomb extends Projectile {
     private static final double BOMB_HEIGHT = 10;
 
     public Bomb(double x, double y, Projectile.Sender sender) {
-        super(x, y, sender, MAX_SPEED);
+        super(x, y, sender, MAX_SPEED, 25);
     }
 
     @Override
