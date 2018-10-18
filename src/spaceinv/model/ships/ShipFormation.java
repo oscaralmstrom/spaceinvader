@@ -2,6 +2,7 @@ package spaceinv.model.ships;
 
 
 import spaceinv.model.IPositionable;
+import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.projectiles.Projectile;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class ShipFormation {
 
     private final double PADDING_LEFT = 100;
     private final double PADDING_RIGHT = GAME_WIDTH - PADDING_LEFT;
-    private final double DOWN_STEP = 30;
+    private final double DOWN_STEP;
 
     private static final Random rand = new Random();
     private final List<AbstractSpaceShip> ships;
@@ -24,6 +25,7 @@ public class ShipFormation {
 
     public ShipFormation(List<AbstractSpaceShip> ships) {
         this.ships = ships;
+        DOWN_STEP = ships.get(0).getHeight();
         moveDir = Direction.RIGHT;
     }
 
@@ -44,7 +46,7 @@ public class ShipFormation {
             case LEFT:
                 moveSpeed = -Math.abs(moveSpeed);
 
-                if (movesOutOfWindow(-moveSpeed)) {
+                if (movesOutOfWindow(moveSpeed)) {
                     stepDown();
                     moveDir = Direction.RIGHT;
                 } else {
@@ -53,6 +55,13 @@ public class ShipFormation {
                 break;
         }
 
+    }
+
+    public Projectile spawnInvaderProjectiles() {
+        if (rand.nextDouble() < 0.01) {
+            return ships.get(rand.nextInt(ships.size())).fire();
+        }
+        return null;
     }
 
     private boolean movesOutOfWindow(double speedX) {
@@ -105,7 +114,7 @@ public class ShipFormation {
             return;
         }
 
-        for (int i = ships.size() - 1; i <= 0; i--) {
+        for (int i = ships.size() - 1; i >= 0; i--) {
             if (ships.get(i).isColiding(proj)) {
                 ships.remove(i);
             }

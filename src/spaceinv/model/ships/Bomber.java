@@ -10,8 +10,8 @@ public class Bomber extends AbstractSpaceShip {
     public Bomber(double _posX, double _posY) {
         super(_posX, _posY);
     }
-
-    public Bomb createBomb() {
+    @Override
+    public Bomb fire() {
         return new Bomb(getX(), getY(), getSender());
     }
 

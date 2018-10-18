@@ -13,6 +13,7 @@ import java.util.List;
         *** Nothing to do here ***
 
  */
+
 public final class LevelUtils {
 
 
@@ -30,8 +31,7 @@ public final class LevelUtils {
     public static <T extends AbstractSpaceShip> List<T> distribute(List<T> ships, double horizonDistBetweenShip) {
         double xDistance = 0;
         for (AbstractSpaceShip s : ships) {
-            s.setX(s.getX() + xDistance);
-            s.setMoveInterval(s.getX(), s.getX() + 2 * s.getWidth());
+            s.setPosition(s.getX() + xDistance, s.getY());
             xDistance = xDistance + s.getWidth() + horizonDistBetweenShip;
         }
         return ships;
