@@ -7,8 +7,8 @@ import spaceinv.model.projectiles.Rocket;
  */
 public class Frigate extends AbstractSpaceShip  {
 
-    public Frigate(double _posX, double _posY) {
-        super(_posX, _posY);
+    public Frigate(double _posX, double _posY, int pointsIfKilled) {
+        super(_posX, _posY, pointsIfKilled);
     }
 
     @Override

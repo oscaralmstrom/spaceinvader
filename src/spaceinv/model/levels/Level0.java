@@ -41,7 +41,7 @@ public class Level0 implements ILevel {
         //Use the functions in LevelUtils
 
         for (int i = 1; i<10; i++){
-            ships.add(new Bomber(40*i +10, 20));
+            ships.add(new Bomber(40*i +10, 20, 2));
         }
     }
 

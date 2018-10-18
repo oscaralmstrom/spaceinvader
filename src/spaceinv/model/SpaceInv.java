@@ -1,11 +1,9 @@
 package spaceinv.model;
 
 import spaceinv.model.projectiles.Projectile;
-import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.levels.ILevel;
 import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.projectiles.Explosion;
-import spaceinv.model.projectiles.Projectile;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
 import spaceinv.model.statics.OuterSpace;
@@ -56,6 +54,7 @@ public class SpaceInv {
         ground = level.getGround();
         outerSpace = level.getOuterSpace();
 
+        points = 0;
         formationSpeed = 2;
         projectiles = new ArrayList<>();
         gameState = GameState.RUNNING;
@@ -97,7 +96,7 @@ public class SpaceInv {
                             projectiles.set(i, new Explosion(projectiles.get(i)));
                         }
 
-                        formation.removeShipOnHit(projectiles.get(i));
+                        points += formation.removeShipOnHit(projectiles.get(i));
                         projectiles.remove(i);
                     }
                     break;

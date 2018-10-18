@@ -109,16 +109,20 @@ public class ShipFormation {
         return false;
     }
 
-    public void removeShipOnHit(Projectile proj) {
+    public int removeShipOnHit(Projectile proj) {
+        int points = 0;
         if (proj.getSender().equals(AbstractSpaceShip.getSender())) {
-            return;
+            return 0;
         }
 
         for (int i = ships.size() - 1; i >= 0; i--) {
             if (ships.get(i).isColiding(proj)) {
+                points += ships.get(i).getPoints();
                 ships.remove(i);
             }
         }
+
+        return points;
     }
 
 
