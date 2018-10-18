@@ -1,6 +1,8 @@
 package spaceinv.model;
 
 import spaceinv.model.levels.ILevel;
+import spaceinv.model.projectiles.Bomb;
+import spaceinv.model.projectiles.Explosion;
 import spaceinv.model.projectiles.Projectile;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
@@ -87,7 +89,12 @@ public class SpaceInv {
                     }
 
                     if (formation.ckeckHit(projectiles.get(i))) {
-                        //TODO If projectile was a bomb, trigger explosion here
+
+                        if (projectiles.get(i) instanceof Bomb) {
+                            //Replaces bomb with explosion
+                            projectiles.set(i, new Explosion(projectiles.get(i)));
+                        }
+
                         formation.removeShipOnHit(projectiles.get(i));
                         projectiles.remove(i);
                     }
