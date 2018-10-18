@@ -244,10 +244,7 @@ public class SpaceInvGUI extends Application {
                     SpaceInvGUI.this.handleModelEvent(e);
                 }
                 //TODO Add stop to game
-                if (spaceInv.getGameState() != SpaceInv.GameState.RUNNING) {
-                    timer.stop();
-                    running = false;
-                }
+                gameEnded();
             }
         };
 
