@@ -2,6 +2,10 @@ package spaceinv.model;
 
 import spaceinv.model.projectiles.Projectile;
 import spaceinv.model.ships.AbstractSpaceShip;
+import spaceinv.model.levels.ILevel;
+import spaceinv.model.projectiles.Bomb;
+import spaceinv.model.projectiles.Explosion;
+import spaceinv.model.projectiles.Projectile;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
 import spaceinv.model.statics.OuterSpace;
@@ -26,7 +30,7 @@ public class SpaceInv {
     public static final long ONE_SEC = 1_000_000_000;
     public static final long HALF_SEC = 500_000_000;
     public static final long TENTH_SEC = 100_000_000;
-    private boolean IS_RUNNING;
+    private GameState gameState;
 
     // TODO
     //private final List<AbstractSpaceShip> ships;
@@ -35,7 +39,7 @@ public class SpaceInv {
     private final Ground ground;           // Border for bombs
     private final OuterSpace outerSpace;   // Border for rocket
     private final Gun gun;
-    private final ShipFormation formation;
+    private ShipFormation formation;
     private double formationSpeed;
 
     private int points;
@@ -46,14 +50,15 @@ public class SpaceInv {
     private long timeForlastFire;
     private long shipMoveDelay = TENTH_SEC;
 
-    public SpaceInv(List<AbstractSpaceShip> spaceShips, Gun theGun, Ground _ground, OuterSpace backGround) {
-        gun = theGun;
-        formation = new ShipFormation(spaceShips);
-        formationSpeed = 10;
-        ground = _ground;
-        outerSpace = backGround;
+    public SpaceInv(ILevel level/*List<AbstractSpaceShip> spaceShips, Gun theGun, Ground _ground, OuterSpace backGround*/) {
+        gun = level.getGun();
+        formation = level.getFormation();
+        ground = level.getGround();
+        outerSpace = level.getOuterSpace();
+
+        formationSpeed = 2;
         projectiles = new ArrayList<>();
-        IS_RUNNING = true;
+        gameState = GameState.RUNNING;
     }
 
     // ------ Game loop (called by timer) -----------------
@@ -68,29 +73,54 @@ public class SpaceInv {
             }
         }
         gun.decCooldown();
-
+        Projectile temp = formation.spawnInvaderProjectiles();
+        if (temp != null) {
+            projectiles.add(temp);
+        }
         formation.move(formationSpeed);
 
-        for (int i = projectiles.size() - 1; i >= 0; i--) {
-            if (movesOutOfWindow(projectiles.get(i))) {
-                projectiles.remove(i);
-                continue;
-            }
 
+        for (int i = projectiles.size() - 1; i >= 0; i--) {
             projectiles.get(i).move();
 
-            if (projectiles.get(i).isColiding(gun)) {
-                gun.hit();
-                projectiles.remove(i);
-            } else if (formation.ckeckHit(projectiles.get(i))) {
-                //TODO If projectile was a bomb, trigger explosion here
-                formation.removeShipOnHit(projectiles.get(i));
+            switch (projectiles.get(i).getSender()) {
+                case GUN:
+                    if (projectiles.get(i).isColiding(outerSpace)) {
+                        projectiles.remove(i);
+                        break;
+                    }
+
+                    if (formation.ckeckHit(projectiles.get(i))) {
+
+                        if (projectiles.get(i) instanceof Bomb) {
+                            //Replaces bomb with explosion
+                            projectiles.set(i, new Explosion(projectiles.get(i)));
+                        }
+
+                        formation.removeShipOnHit(projectiles.get(i));
+                        projectiles.remove(i);
+                    }
+                    break;
+                case INVADER:
+                    if (projectiles.get(i).isColiding(ground)) {
+                        projectiles.remove(i);
+                        continue;
+                    }
+
+                    if (projectiles.get(i).isColiding(gun)) {
+                        gun.hit();
+                        projectiles.remove(i);
+                    }
+                    break;
             }
         }
 
+        //TODO check if ships hit the ground
         if (gun.getHealth() <= 0) {
-            IS_RUNNING = false;
+            gameState = GameState.LOSE;
             return;
+        } else if (formation.size() == 0) {
+            gameState = GameState.WIN;
         }
     }
 
@@ -116,7 +146,10 @@ public class SpaceInv {
     // ---------- Interaction with GUI  -------------------------
 
     public void fireGun() {
-        gun.fire();
+        Projectile shot = gun.fire();
+        if (shot != null) {
+            projectiles.add(shot);
+        }
     }
 
     public void moveGunLeft() {
@@ -124,7 +157,7 @@ public class SpaceInv {
     }
 
     public void moveGunRight() {
-        gun.setSpeed(gun.getSpeedX(), 0);
+        gun.setSpeed(gun.MAX_SPEED, 0);
     }
 
     public void stopGun() {
@@ -132,6 +165,13 @@ public class SpaceInv {
     }
 
     // --------- Send everything to be rendered --------------
+
+    public void newFormation(ShipFormation form) {
+        if (form != null) {
+            formation = form;
+            gameState = GameState.RUNNING;
+        }
+    }
 
     public List<IPositionable> getPositionables() {
         List<IPositionable> ps = new ArrayList<>();
@@ -148,9 +188,12 @@ public class SpaceInv {
         return points;
     }
 
-    public boolean getIsRunning() {
-        return IS_RUNNING;
+    public GameState getGameState() {
+        return gameState;
     }
 
+    public enum GameState {
+        RUNNING, WIN, LOSE;
+    }
 
 }
