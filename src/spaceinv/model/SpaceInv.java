@@ -2,7 +2,6 @@ package spaceinv.model;
 
 import spaceinv.model.levels.ILevel;
 import spaceinv.model.projectiles.Projectile;
-import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
 import spaceinv.model.statics.OuterSpace;
@@ -109,11 +108,9 @@ public class SpaceInv {
 
         //TODO check if ships hit the ground
         if (gun.getHealth() <= 0) {
-            gameState = GameState.LOOSE;
+            gameState = GameState.LOSE;
             return;
-        }
-        else if(formation.size() == 0)
-        {
+        } else if (formation.size() == 0) {
             gameState = GameState.WIN;
         }
     }
@@ -186,8 +183,8 @@ public class SpaceInv {
         return gameState;
     }
 
-    public enum GameState{
-        RUNNING, WIN, LOOSE;
+    public enum GameState {
+        RUNNING, WIN, LOSE;
     }
 
 }

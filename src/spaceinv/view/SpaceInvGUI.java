@@ -17,21 +17,14 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import spaceinv.event.Event;
 import spaceinv.event.EventService;
-import spaceinv.model.Gun;
 import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
 import spaceinv.model.levels.ILevel;
 import spaceinv.model.levels.Level0;
-import spaceinv.model.projectiles.Projectile;
-import spaceinv.model.ships.AbstractSpaceShip;
-import spaceinv.model.ships.Bomber;
-import spaceinv.model.statics.Ground;
 import spaceinv.model.statics.OuterSpace;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
 
 import static spaceinv.model.SpaceInv.GAME_HEIGHT;
 import static spaceinv.model.SpaceInv.GAME_WIDTH;
@@ -146,7 +139,7 @@ public class SpaceInvGUI extends Application {
                     spaceInv.newFormation(levels.pop().getFormation());
                     break;
                 }
-            case LOOSE:
+            case LOSE:
                 stopGame();
                 showResults();
         }
@@ -169,7 +162,7 @@ public class SpaceInvGUI extends Application {
             fg.fillText("You won!\nYour score was: " + spaceInv.getPoints(), GAME_WIDTH / 2, GAME_HEIGHT / 2);
         } else {
             fg.setFill(Color.RED);
-            fg.fillText("You loose!\nYour score was: " + spaceInv.getPoints(), GAME_WIDTH / 2, GAME_HEIGHT / 2);
+            fg.fillText("You lose!\nYour score was: " + spaceInv.getPoints(), GAME_WIDTH / 2, GAME_HEIGHT / 2);
         }
     }
 
