@@ -90,7 +90,7 @@ public class SpaceInv {
                         break;
                     }
 
-                    if (formation.ckeckHit(projectiles.get(i))) {
+                    if (formation.checkHit(projectiles.get(i))) {
 
                         if (projectiles.get(i) instanceof Bomb) {
                             //Replaces bomb with explosion

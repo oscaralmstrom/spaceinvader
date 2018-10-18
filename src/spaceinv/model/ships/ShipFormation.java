@@ -95,7 +95,7 @@ public class ShipFormation {
     }
 
     // TODO Some method to reove ship hit by rocket
-    public boolean ckeckHit(Projectile proj) {
+    public boolean checkHit(Projectile proj) {
 
         if (proj.getSender().equals(AbstractSpaceShip.getSender())) {
             return false;
