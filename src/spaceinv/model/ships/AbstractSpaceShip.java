@@ -17,20 +17,18 @@ public abstract class AbstractSpaceShip extends Movable {
     private final static Projectile.Sender senderType = Projectile.Sender.INVADER;
     private static final double SHIP_WIDTH = 40;
     private static final double SHIP_HEIGHT = 30;
-    private final int points;
 
     private static Random rand = new Random();   // TODO
 
     //private double minX;  // min and max for ship to move i x-dir
     //private double maxX;
 
-    public AbstractSpaceShip(double _posX, double _posY, int pointsIfKilled) {
+    public AbstractSpaceShip(double _posX, double _posY) {
         super(_posX, _posY);
-        points = pointsIfKilled;
     }
 
     // To be overridden
-    public int getPoints(){ return points; }
+    public abstract int getPoints();
 
     public abstract Projectile fire();
 

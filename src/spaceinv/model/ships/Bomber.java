@@ -7,8 +7,8 @@ import spaceinv.model.projectiles.Projectile;
  *   Type of space ship
  */
 public class Bomber extends AbstractSpaceShip {
-    public Bomber(double _posX, double _posY, int pointsIfKilled) {
-        super(_posX, _posY, pointsIfKilled);
+    public Bomber(double _posX, double _posY) {
+        super(_posX, _posY);
     }
     @Override
     public Bomb fire() {
@@ -20,5 +20,8 @@ public class Bomber extends AbstractSpaceShip {
         return null;
     }
 
-
+    @Override
+    public int getPoints() {
+        return 2;
+    }
 }
