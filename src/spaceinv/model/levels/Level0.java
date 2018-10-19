@@ -5,6 +5,7 @@ package spaceinv.model.levels;
 import spaceinv.model.Gun;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.Bomber;
+import spaceinv.model.ships.Frigate;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
 import spaceinv.model.statics.OuterSpace;
@@ -39,7 +40,11 @@ public class Level0 implements ILevel {
         //Use the functions in LevelUtils
 
         for (int i = 1; i<10; i++){
-            ships.add(new Bomber(40*i +10, 20, 2));
+            if (i%2 == 1) {
+                ships.add(new Bomber(40 * i + 10, 20));
+            }else {
+                ships.add(new Frigate(40 * i + 10, 20));
+            }
         }
     }
 
