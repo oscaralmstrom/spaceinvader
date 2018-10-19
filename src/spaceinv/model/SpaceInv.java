@@ -70,12 +70,12 @@ public class SpaceInv {
         moveGun();
         moveFormation();
 
-        for (int i = projectiles.size() - 1; i >= 0; i--) {
+       outerLoop: for (int i = projectiles.size() - 1; i >= 0; i--) {
             projectiles.get(i).move();
 
             switch (projectiles.get(i).getSender()) {
                 case GUN:
-                    checkGunProjectile(i);
+                    if (checkGunProjectile(i)){break outerLoop;}
                     break;
                 case INVADER:
                     checkInvaderProjectile(i);
@@ -129,24 +129,28 @@ public class SpaceInv {
         projectiles.remove(i);
     }
 
-    private void checkGunProjectile(int i) {
+    private boolean checkGunProjectile(int i) {
         boolean spaceHit = projectiles.get(i).isColliding(outerSpace);
         boolean formationHit = formation.checkHit(projectiles.get(i));
+        boolean collateralDamage = false;
 
         if (!spaceHit && !formationHit) {
-            return;
+            return collateralDamage;
         }
 
         if (formationHit) {
+            collateralDamage = true;
             if (projectiles.get(i) instanceof Bomb) {
                 //Replaces bomb with explosion
                 projectiles.set(i, explosions.get(explosions.size() - 1));
+                collateralDamage = false;
             }
             EventService.add(new Event(Event.Type.ROCKET_HIT_SHIP));
             points += formation.removeShipOnHit(projectiles.get(i));
             explosions.add(new Explosion(projectiles.get(i)));
         }
         projectiles.remove(i);
+        return collateralDamage;
     }
 
     //-------Helping methods--------------------------

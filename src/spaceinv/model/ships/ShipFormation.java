@@ -16,7 +16,7 @@ public class ShipFormation {
     private final double PADDING_LEFT = 100;
     private final double PADDING_RIGHT = GAME_WIDTH - PADDING_LEFT;
     private final double DOWN_STEP;
-    private final static double chanseOfShooting = 0.01;
+    private final static double chanceOfShooting = 0.01;
 
     private static final Random rand = new Random();
     private final List<AbstractSpaceShip> ships;
@@ -57,7 +57,7 @@ public class ShipFormation {
     }
 
     public Projectile spawnInvaderProjectiles() {
-        if (rand.nextDouble() < chanseOfShooting) {
+        if (rand.nextDouble() < chanceOfShooting) {
             return ships.get(rand.nextInt(ships.size())).fire();
         }
         return null;

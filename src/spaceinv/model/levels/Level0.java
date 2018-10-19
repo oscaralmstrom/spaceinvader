@@ -4,7 +4,6 @@ package spaceinv.model.levels;
 
 import spaceinv.model.Gun;
 import spaceinv.model.ships.AbstractSpaceShip;
-import spaceinv.model.ships.BattleCruiser;
 import spaceinv.model.ships.Bomber;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
@@ -15,7 +14,6 @@ import java.util.List;
 
 import static spaceinv.model.SpaceInv.GAME_HEIGHT;
 import static spaceinv.model.SpaceInv.GAME_WIDTH;
-import static spaceinv.model.levels.LevelUtils.*;
 
 /*
     Basic level to test ships and movement of
@@ -31,7 +29,7 @@ public class Level0 implements ILevel {
             // TODO replace null above with some ship
 
     private final Ground ground = new Ground();
-    private final OuterSpace outerspae = new OuterSpace();
+    private final OuterSpace outerspace = new OuterSpace();
     private final Gun gun = new Gun(GAME_WIDTH / 2, GAME_HEIGHT - 75);
     private final List<AbstractSpaceShip> ships = new ArrayList<>();
 
@@ -47,7 +45,7 @@ public class Level0 implements ILevel {
 
     @Override
     public OuterSpace getOuterSpace() {
-        return outerspae;
+        return outerspace;
     }
 
     @Override
