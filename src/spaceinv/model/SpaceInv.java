@@ -68,7 +68,39 @@ public class SpaceInv {
     // ------ Game loop (called by timer) -----------------
 
     public void update(long now) {
-        // TODO the game loop
+        moveGun();
+        moveFormation();
+
+        for (int i = projectiles.size() - 1; i >= 0; i--) {
+            projectiles.get(i).move();
+
+            switch (projectiles.get(i).getSender()) {
+                case GUN:
+                    checkGunProjectile(i);
+                    break;
+                case INVADER:
+                    checkInvaderProjectile(i);
+                    break;
+            }
+        }
+
+        if (gun.getHealth() <= 0) {
+            gameState = GameState.LOSE;
+            return;
+        } else if (formation.size() == 0) {
+            gameState = GameState.WIN;
+        }
+    }
+
+    private void moveFormation() {
+        Projectile temp = formation.spawnInvaderProjectiles();
+        if (temp != null) {
+            projectiles.add(temp);
+        }
+        formation.move(formationSpeed);
+    }
+
+    private void moveGun() {
         if (!movesOutOfWindow(gun)) {
             gun.move();
         } else {
@@ -77,61 +109,48 @@ public class SpaceInv {
             }
         }
         gun.decCooldown();
-        Projectile temp = formation.spawnInvaderProjectiles();
-        if (temp != null) {
-            projectiles.add(temp);
-        }
-        formation.move(formationSpeed);
+    }
 
+    private void checkInvaderProjectile(int i) {
+        boolean groundHit = projectiles.get(i).isColiding(ground);
+        boolean gunHit = projectiles.get(i).isColiding(gun);
 
-        for (int i = projectiles.size() - 1; i >= 0; i--) {
-            projectiles.get(i).move();
-
-            switch (projectiles.get(i).getSender()) {
-                case GUN:
-                    if (projectiles.get(i).isColiding(outerSpace)) {
-                        explosions.add(new Explosion(projectiles.get(i)));
-                        projectiles.remove(i);
-                        break;
-                    }
-
-                    if (formation.checkHit(projectiles.get(i))) {
-
-                        explosions.add(new Explosion(projectiles.get(i)));
-
-                        if (projectiles.get(i) instanceof Bomb) {
-                            //Replaces bomb with explosion
-                            projectiles.set(i, explosions.get(explosions.size() - 1));
-                        }
-                        EventService.add(new Event(Event.Type.ROCKET_HIT_SHIP));
-                        points += formation.removeShipOnHit(projectiles.get(i));
-                        projectiles.remove(i);
-                    }
-                    break;
-                case INVADER:
-                    if (projectiles.get(i).isColiding(ground)) {
-                        EventService.add(new Event(Event.Type.BOMB_HIT_GROUND));
-                        explosions.add(new Explosion(projectiles.get(i)));
-                        projectiles.remove(i);
-                        continue;
-                    }
-
-                    if (projectiles.get(i).isColiding(gun)) {
-                        gun.hit();
-                        explosions.add(new Explosion(projectiles.get(i)));
-                        EventService.add(new Event(Event.Type.BOMB_HIT_GUN));
-                        projectiles.remove(i);
-                    }
-                    break;
-            }
-        }
-
-        //TODO check if ships hit the ground
-        if (gun.getHealth() <= 0) {
-            gameState = GameState.LOSE;
+        if (!groundHit && !gunHit) {
             return;
-        } else if (formation.size() == 0) {
-            gameState = GameState.WIN;
+        }
+
+        explosions.add(new Explosion(projectiles.get(i)));
+        projectiles.remove(i);
+
+        if (groundHit) {
+            EventService.add(new Event(Event.Type.BOMB_HIT_GROUND));
+            return;
+        }
+
+        if (gunHit) {
+            gun.hit();
+            EventService.add(new Event(Event.Type.BOMB_HIT_GUN));
+        }
+    }
+
+    private void checkGunProjectile(int i) {
+        boolean spaceHit = projectiles.get(i).isColiding(outerSpace);
+        boolean formationHit = formation.checkHit(projectiles.get(i));
+
+        if (!spaceHit && !formationHit) {
+            return;
+        }
+
+        explosions.add(new Explosion(projectiles.get(i)));
+        projectiles.remove(i);
+
+        if (formationHit) {
+            if (projectiles.get(i) instanceof Bomb) {
+                //Replaces bomb with explosion
+                projectiles.set(i, explosions.get(explosions.size() - 1));
+            }
+            EventService.add(new Event(Event.Type.ROCKET_HIT_SHIP));
+            points += formation.removeShipOnHit(projectiles.get(i));
         }
     }
 
