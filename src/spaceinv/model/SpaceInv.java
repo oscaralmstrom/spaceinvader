@@ -144,9 +144,8 @@ public class SpaceInv {
             }
             EventService.add(new Event(Event.Type.ROCKET_HIT_SHIP));
             points += formation.removeShipOnHit(projectiles.get(i));
+            explosions.add(new Explosion(projectiles.get(i)));
         }
-
-        explosions.add(new Explosion(projectiles.get(i)));
         projectiles.remove(i);
     }
 
