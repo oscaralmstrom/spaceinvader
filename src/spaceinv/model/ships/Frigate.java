@@ -5,7 +5,7 @@ import spaceinv.model.projectiles.Rocket;
 /*
  *   Type of space ship
  */
-public class Frigate extends AbstractSpaceShip  {
+public class Frigate extends AbstractSpaceShip {
 
     public Frigate(double _posX, double _posY) {
         super(_posX, _posY);
@@ -23,6 +23,6 @@ public class Frigate extends AbstractSpaceShip  {
 
     @Override
     public Object copyOf() {
-        return null;
+        return new Frigate(getX(), getY());
     }
 }
