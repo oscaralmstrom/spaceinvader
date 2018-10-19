@@ -184,16 +184,25 @@ public class SpaceInvGUI extends Application {
     // --- Handling events coming form the model -----
 
     private void handleModelEvent(Event evt) {
-        if (evt.type == Event.Type.ROCKET_HIT_SHIP) {
-            // TODO
-        } else if (evt.type == Event.Type.ROCKET_LAUNCHED) {
-            // TODO
-        } else if (evt.type == Event.Type.BOMB_HIT_GROUND) {
-            // TODO
-        } else if (evt.type == Event.Type.BOMB_HIT_GUN) {
-            // TODO
-        } else if (evt.type == Event.Type.BOMB_DROPPED) {
 
+        switch(evt.type)
+        {
+            case ROCKET_HIT_SHIP:
+                Assets.INSTANCE.rocketHitShip.play();
+            case ROCKET_LAUNCHED:
+                Assets.INSTANCE.smallExplosion.play();
+                break;
+            case BOMB_DROPPED:
+                Assets.INSTANCE.smallExplosion.play();
+                break;
+            case BOMB_HIT_GUN:
+                Assets.INSTANCE.bigExplosion.play();
+                break;
+            case BOMB_HIT_GROUND:
+                Assets.INSTANCE.bigExplosion.play();
+                break;
+            case SHIP_HIT_GROUND:
+                Assets.INSTANCE.bigExplosion.play();
         }
     }
 
@@ -206,7 +215,7 @@ public class SpaceInvGUI extends Application {
             fg.drawImage(i, d.getX(), d.getY(), d.getWidth(), d.getHeight());
         }
         for (IPositionable d : spaceInv.getExplotions()) {
-            renderExplosion(d.getX(),d.getY());
+            renderExplosion(d.getX(), d.getY());
         }
         fg.setFill(Assets.INSTANCE.colorFgText);
         fg.setFont(Font.font(Assets.INSTANCE.fontSize));
@@ -254,7 +263,6 @@ public class SpaceInvGUI extends Application {
                 if (e != null) {
                     SpaceInvGUI.this.handleModelEvent(e);
                 }
-                //TODO Add stop to game
                 gameEnded();
             }
         };
