@@ -212,7 +212,7 @@ public class SpaceInv {
         return ps;
     }
 
-    public List<IPositionable> getExplotions() {
+    public List<IPositionable> getExplosions() {
         List<IPositionable> ps = new ArrayList<>();
         ps.addAll(explosions);
         explosions.clear();
