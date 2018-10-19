@@ -1,5 +1,8 @@
 package spaceinv.model;
 
+import javafx.scene.control.Button;
+import spaceinv.event.Event;
+import spaceinv.event.EventService;
 import spaceinv.model.projectiles.Projectile;
 import spaceinv.model.levels.ILevel;
 import spaceinv.model.projectiles.Bomb;
@@ -100,13 +103,14 @@ public class SpaceInv {
                             //Replaces bomb with explosion
                             projectiles.set(i, explosions.get(explosions.size() - 1));
                         }
-
+                        EventService.add(new Event(Event.Type.ROCKET_HIT_SHIP));
                         points += formation.removeShipOnHit(projectiles.get(i));
                         projectiles.remove(i);
                     }
                     break;
                 case INVADER:
                     if (projectiles.get(i).isColiding(ground)) {
+                        EventService.add(new Event(Event.Type.BOMB_HIT_GROUND));
                         explosions.add(new Explosion(projectiles.get(i)));
                         projectiles.remove(i);
                         continue;
@@ -115,6 +119,7 @@ public class SpaceInv {
                     if (projectiles.get(i).isColiding(gun)) {
                         gun.hit();
                         explosions.add(new Explosion(projectiles.get(i)));
+                        EventService.add(new Event(Event.Type.BOMB_HIT_GUN));
                         projectiles.remove(i);
                     }
                     break;
@@ -154,6 +159,7 @@ public class SpaceInv {
     public void fireGun() {
         Projectile shot = gun.fire();
         if (shot != null) {
+            EventService.add(new Event(Event.Type.ROCKET_LAUNCHED));
             projectiles.add(shot);
         }
     }
