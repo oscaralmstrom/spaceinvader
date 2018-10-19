@@ -52,9 +52,10 @@ public enum Assets {
 
     // -------------- Audio handling -----------------------------
 
-    public final AudioClip rocketHitShip = getSound("explosion1.wav");
-    // TODO, some problems with playing different file formats, wav bad .. too big files
-    // public final AudioClip music = getSound("music.wav");
+    public final AudioClip bigExplosion = getSound("explosion1.wav");
+    public final AudioClip smallExplosion = getSound("explosion2.wav");
+    public final AudioClip rocketHitShip = getSound("rocket.wav");
+    //public final AudioClip music = getSound("music.wav");
 
     // -------------- Connect classes or objects to images -----------------
 
