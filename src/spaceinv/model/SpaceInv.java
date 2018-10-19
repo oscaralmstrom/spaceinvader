@@ -42,6 +42,7 @@ public class SpaceInv {
 
     private int points;
     private final List<Projectile> projectiles;
+    private final List<Projectile> explosions;
 
     // Timing. All timing handled here!
     private long timeForLastMove;
@@ -57,6 +58,7 @@ public class SpaceInv {
         points = 0;
         formationSpeed = 2;
         projectiles = new ArrayList<>();
+        explosions = new ArrayList<>();
         gameState = GameState.RUNNING;
     }
 
@@ -85,15 +87,18 @@ public class SpaceInv {
             switch (projectiles.get(i).getSender()) {
                 case GUN:
                     if (projectiles.get(i).isColiding(outerSpace)) {
+                        explosions.add(new Explosion(projectiles.get(i)));
                         projectiles.remove(i);
                         break;
                     }
 
                     if (formation.checkHit(projectiles.get(i))) {
 
+                        explosions.add(new Explosion(projectiles.get(i)));
+
                         if (projectiles.get(i) instanceof Bomb) {
                             //Replaces bomb with explosion
-                            projectiles.set(i, new Explosion(projectiles.get(i)));
+                            projectiles.set(i, explosions.get(explosions.size() - 1));
                         }
 
                         points += formation.removeShipOnHit(projectiles.get(i));
@@ -102,12 +107,14 @@ public class SpaceInv {
                     break;
                 case INVADER:
                     if (projectiles.get(i).isColiding(ground)) {
+                        explosions.add(new Explosion(projectiles.get(i)));
                         projectiles.remove(i);
                         continue;
                     }
 
                     if (projectiles.get(i).isColiding(gun)) {
                         gun.hit();
+                        explosions.add(new Explosion(projectiles.get(i)));
                         projectiles.remove(i);
                     }
                     break;
@@ -180,6 +187,13 @@ public class SpaceInv {
         ps.addAll(projectiles);
         ps.add(outerSpace);
 
+        return ps;
+    }
+
+    public List<IPositionable> getExplotions() {
+        List<IPositionable> ps = new ArrayList<>();
+        ps.addAll(explosions);
+        explosions.clear();
         return ps;
     }
 

@@ -205,6 +205,9 @@ public class SpaceInvGUI extends Application {
             Image i = Assets.INSTANCE.get(d.getClass());
             fg.drawImage(i, d.getX(), d.getY(), d.getWidth(), d.getHeight());
         }
+        for (IPositionable d : spaceInv.getExplotions()) {
+            renderExplosion(d.getX(),d.getY());
+        }
         fg.setFill(Assets.INSTANCE.colorFgText);
         fg.setFont(Font.font(Assets.INSTANCE.fontSize));
         fg.fillText(String.valueOf(spaceInv.getPoints()), 50, 50);
