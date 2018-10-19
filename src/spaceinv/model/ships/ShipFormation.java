@@ -108,7 +108,7 @@ public class ShipFormation {
         return false;
     }
 
-    public int removeShipOnHit(Projectile proj) {
+    public int removeShipOnHit(Projectile proj, boolean collateralDamage) {
         int points = 0;
         if (proj.getSender().equals(AbstractSpaceShip.getSender())) {
             return 0;
@@ -118,6 +118,7 @@ public class ShipFormation {
             if (ships.get(i).isColliding(proj)) {
                 points += ships.get(i).getPoints();
                 ships.remove(i);
+                if (collateralDamage){break;}
             }
         }
 
