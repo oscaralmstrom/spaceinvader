@@ -119,18 +119,15 @@ public class SpaceInv {
             return;
         }
 
-        explosions.add(new Explosion(projectiles.get(i)));
-        projectiles.remove(i);
-
         if (groundHit) {
             EventService.add(new Event(Event.Type.BOMB_HIT_GROUND));
-            return;
-        }
-
-        if (gunHit) {
+        } else if (gunHit) {
             gun.hit();
             EventService.add(new Event(Event.Type.BOMB_HIT_GUN));
         }
+
+        explosions.add(new Explosion(projectiles.get(i)));
+        projectiles.remove(i);
     }
 
     private void checkGunProjectile(int i) {
@@ -141,9 +138,6 @@ public class SpaceInv {
             return;
         }
 
-        explosions.add(new Explosion(projectiles.get(i)));
-        projectiles.remove(i);
-
         if (formationHit) {
             if (projectiles.get(i) instanceof Bomb) {
                 //Replaces bomb with explosion
@@ -152,6 +146,9 @@ public class SpaceInv {
             EventService.add(new Event(Event.Type.ROCKET_HIT_SHIP));
             points += formation.removeShipOnHit(projectiles.get(i));
         }
+
+        explosions.add(new Explosion(projectiles.get(i)));
+        projectiles.remove(i);
     }
 
     //-------Helping methods--------------------------
