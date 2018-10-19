@@ -77,19 +77,17 @@ public class SpaceInvGUI extends Application {
         KeyCode kc = event.getCode();
         switch (kc) {
             case LEFT:
-                    leftPressed = false;
-                    if(rightPressed)
-                    {
-                        spaceInv.moveGunRight();
-                        break;
-                    }
+                leftPressed = false;
+                if (rightPressed) {
+                    spaceInv.moveGunRight();
+                    break;
+                }
             case RIGHT:
-                    rightPressed = false;
-                    if(leftPressed)
-                    {
-                        spaceInv.moveGunLeft();
-                        break;
-                    }
+                rightPressed = false;
+                if (leftPressed) {
+                    spaceInv.moveGunLeft();
+                    break;
+                }
                 spaceInv.stopGun();
                 break;
             default: // Nothing
