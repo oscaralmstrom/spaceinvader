@@ -3,9 +3,9 @@ package spaceinv.model.projectiles;
 public class Explosion extends Projectile {
 
     public Explosion(Projectile proj) {
-        super(proj.getX() + proj.getWidth() - proj.getEXPLOSION_DIAMETER() / 2,
-                proj.getY() + proj.getWidth() / 2 - proj.getEXPLOSION_DIAMETER() / 2,
-                proj.getSender(), 0, proj.getEXPLOSION_DIAMETER() / 2);
+        super(proj.getX() + proj.getWidth() - proj.getEXPLOSION_DIAMETER(),
+                proj.getY() + proj.getWidth() / 2 - proj.getEXPLOSION_DIAMETER(),
+                proj.getSender(), 0, proj.getEXPLOSION_DIAMETER());
     }
 
     @Override

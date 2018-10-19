@@ -15,7 +15,7 @@ public abstract class Projectile extends Movable {
         } else {
             setSpeed(0, -maxSpeed);
         }
-        EXPLOSION_DIAMETER = explRad * 2;
+        EXPLOSION_DIAMETER = explRad;
     }
 
     protected double getEXPLOSION_DIAMETER() {
