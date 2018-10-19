@@ -5,7 +5,7 @@ import spaceinv.model.Movable;
 public abstract class Projectile extends Movable {
 
     private Sender sender;
-    private double EXPLOSION_DIAMITER;
+    private double EXPLOSION_DIAMETER;
 
     public Projectile(double x, double y, Sender _sender, double maxSpeed, double explRad) {
         super(x, y);
@@ -15,11 +15,11 @@ public abstract class Projectile extends Movable {
         } else {
             setSpeed(0, -maxSpeed);
         }
-        EXPLOSION_DIAMITER = explRad * 2;
+        EXPLOSION_DIAMETER = explRad * 2;
     }
 
-    protected double getEXPLOSION_DIAMITER() {
-        return EXPLOSION_DIAMITER;
+    protected double getEXPLOSION_DIAMETER() {
+        return EXPLOSION_DIAMETER;
     }
 
     public enum Sender {
