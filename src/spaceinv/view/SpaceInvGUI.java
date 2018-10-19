@@ -46,7 +46,7 @@ public class SpaceInvGUI extends Application {
     private SpaceInv spaceInv;          // Reference to the OO model
     private boolean running = false;    // Is game running?
     private Deque<ILevel> levels = new ArrayDeque<>();
-
+    private boolean leftPressed, rightPressed;
     // ------- Keyboard handling ----------------------------------
 
     private void keyPressed(KeyEvent event) {
@@ -57,9 +57,11 @@ public class SpaceInvGUI extends Application {
         switch (kc) {
             case LEFT:
                 spaceInv.moveGunLeft();
+                leftPressed = true;
                 break;
             case RIGHT:
                 spaceInv.moveGunRight();
+                rightPressed = true;
                 break;
             case SPACE:
                 spaceInv.fireGun();
@@ -75,7 +77,19 @@ public class SpaceInvGUI extends Application {
         KeyCode kc = event.getCode();
         switch (kc) {
             case LEFT:
+                    leftPressed = false;
+                    if(rightPressed)
+                    {
+                        spaceInv.moveGunRight();
+                        break;
+                    }
             case RIGHT:
+                    rightPressed = false;
+                    if(leftPressed)
+                    {
+                        spaceInv.moveGunLeft();
+                        break;
+                    }
                 spaceInv.stopGun();
                 break;
             default: // Nothing
@@ -119,6 +133,7 @@ public class SpaceInvGUI extends Application {
         timer.start();
 
         running = true;
+        leftPressed = rightPressed = false;
     }
 
     private void stopGame() {
