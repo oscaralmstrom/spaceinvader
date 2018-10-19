@@ -1,6 +1,5 @@
 package spaceinv.model;
 
-import javafx.scene.control.Button;
 import spaceinv.event.Event;
 import spaceinv.event.EventService;
 import spaceinv.model.projectiles.Projectile;
@@ -112,8 +111,8 @@ public class SpaceInv {
     }
 
     private void checkInvaderProjectile(int i) {
-        boolean groundHit = projectiles.get(i).isColiding(ground);
-        boolean gunHit = projectiles.get(i).isColiding(gun);
+        boolean groundHit = projectiles.get(i).isColliding(ground);
+        boolean gunHit = projectiles.get(i).isColliding(gun);
 
         if (!groundHit && !gunHit) {
             return;
@@ -131,7 +130,7 @@ public class SpaceInv {
     }
 
     private void checkGunProjectile(int i) {
-        boolean spaceHit = projectiles.get(i).isColiding(outerSpace);
+        boolean spaceHit = projectiles.get(i).isColliding(outerSpace);
         boolean formationHit = formation.checkHit(projectiles.get(i));
 
         if (!spaceHit && !formationHit) {

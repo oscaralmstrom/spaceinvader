@@ -45,7 +45,7 @@ public abstract class Movable implements IPositionable {
         return posY;
     }
 
-    public boolean isColiding(IPositionable obj2) {
+    public boolean isColliding(IPositionable obj2) {
         if (getX() + getWidth() < obj2.getX() || obj2.getX() + obj2.getWidth() < getX()) {
             return false;
         }

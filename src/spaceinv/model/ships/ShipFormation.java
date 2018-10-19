@@ -1,8 +1,6 @@
 package spaceinv.model.ships;
 
 
-import spaceinv.model.IPositionable;
-import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.projectiles.Projectile;
 
 import java.util.List;
@@ -103,7 +101,7 @@ public class ShipFormation {
         }
 
         for (AbstractSpaceShip ship : ships) {
-            if (ship.isColiding(proj)) {
+            if (ship.isColliding(proj)) {
                 return true;
             }
         }
@@ -117,7 +115,7 @@ public class ShipFormation {
         }
 
         for (int i = ships.size() - 1; i >= 0; i--) {
-            if (ships.get(i).isColiding(proj)) {
+            if (ships.get(i).isColliding(proj)) {
                 points += ships.get(i).getPoints();
                 ships.remove(i);
             }
