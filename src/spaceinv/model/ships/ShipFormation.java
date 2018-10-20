@@ -21,35 +21,38 @@ public class ShipFormation {
     private static final Random rand = new Random();
     private final List<AbstractSpaceShip> ships;
     private Direction moveDir;
+    private double speed;
+    private final double speedInc = 0.5;
 
-    public ShipFormation(List<AbstractSpaceShip> ships) {
+    public ShipFormation(List<AbstractSpaceShip> ships, double startSpeed) {
         this.ships = ships;
         DOWN_STEP = ships.get(0).getHeight();
         moveDir = Direction.RIGHT;
+        speed = startSpeed;
     }
 
     // TODO Some method to move the ships
-    public void move(double moveSpeed) {
+    public void move() {
 
         switch (moveDir) {
             case RIGHT:
-                moveSpeed = Math.abs(moveSpeed);
+                speed = Math.abs(speed);
 
-                if (movesOutOfWindow(moveSpeed)) {
+                if (movesOutOfWindow(speed)) {
                     stepDown();
                     moveDir = Direction.LEFT;
                 } else {
-                    moveAllX(moveSpeed);
+                    moveAllX(speed);
                 }
                 break;
             case LEFT:
-                moveSpeed = -Math.abs(moveSpeed);
+                speed = -Math.abs(speed);
 
-                if (movesOutOfWindow(moveSpeed)) {
+                if (movesOutOfWindow(speed)) {
                     stepDown();
                     moveDir = Direction.RIGHT;
                 } else {
-                    moveAllX(moveSpeed);
+                    moveAllX(speed);
                 }
                 break;
         }
@@ -79,6 +82,7 @@ public class ShipFormation {
             ship.move();
             ship.setSpeed(0, 0);
         }
+        speed = Math.abs(speed) + speedInc;
     }
 
     private void moveAllX(double speedX) {
@@ -118,7 +122,9 @@ public class ShipFormation {
             if (ships.get(i).isColliding(proj)) {
                 points += ships.get(i).getPoints();
                 ships.remove(i);
-                if (collateralDamage){break;}
+                if (collateralDamage) {
+                    break;
+                }
             }
         }
 

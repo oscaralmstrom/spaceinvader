@@ -40,7 +40,6 @@ public class SpaceInv {
     private final OuterSpace outerSpace;   // Border for rocket
     private final Gun gun;
     private ShipFormation formation;
-    private double formationSpeed;
 
     private int points;
     private final List<Projectile> projectiles;
@@ -58,7 +57,6 @@ public class SpaceInv {
         outerSpace = level.getOuterSpace();
 
         points = 0;
-        formationSpeed = 2;
         projectiles = new ArrayList<>();
         explosions = new ArrayList<>();
         gameState = GameState.RUNNING;
@@ -96,7 +94,7 @@ public class SpaceInv {
         if (temp != null) {
             projectiles.add(temp);
         }
-        formation.move(formationSpeed);
+        formation.move();
     }
 
     private void moveGun() {

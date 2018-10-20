@@ -70,6 +70,6 @@ public class Level0 implements ILevel {
 
     @Override
     public ShipFormation getFormation() {
-        return new ShipFormation(ships);
+        return new ShipFormation(ships,2);
     }
 }
