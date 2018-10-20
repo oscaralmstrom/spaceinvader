@@ -144,13 +144,11 @@ public class SpaceInvGUI extends Application {
     private void startMusic() {
         //TODO
         Assets.INSTANCE.music.play();
-        System.out.println("Lets party!");
     }
 
     private void stopMusic(){
         //TODO
         Assets.INSTANCE.music.stop();
-        System.out.println("Stop the music!");
     }
 
     private void gameEnded() {
