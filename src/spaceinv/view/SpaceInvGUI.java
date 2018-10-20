@@ -109,8 +109,10 @@ public class SpaceInvGUI extends Application {
                 System.exit(0);
                 break;
             case "Play":
-                toggleMusic();
+                startMusic();
                 break;
+            case "No Play":
+                stopMusic();
             default: // Nothing
         }
     }
@@ -139,8 +141,16 @@ public class SpaceInvGUI extends Application {
         timer.stop();
     }
 
-    private void toggleMusic() {
-        // TODO
+    private void startMusic() {
+        //TODO
+        Assets.INSTANCE.music.play();
+        System.out.println("Lets party!");
+    }
+
+    private void stopMusic(){
+        //TODO
+        Assets.INSTANCE.music.stop();
+        System.out.println("Stop the music!");
     }
 
     private void gameEnded() {

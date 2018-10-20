@@ -39,7 +39,7 @@ public class SpaceInvMenu extends MenuBar {
         RadioMenuItem play = new RadioMenuItem("Play");
         RadioMenuItem noPlay = new RadioMenuItem("No Play");
         play.setToggleGroup(toggleGroup);
-        play.setSelected(true);
+        noPlay.setSelected(true);
         noPlay.setToggleGroup(toggleGroup);
         menuMusic.getItems().addAll(play, noPlay);
         return menuMusic;

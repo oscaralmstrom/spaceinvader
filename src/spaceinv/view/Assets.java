@@ -55,7 +55,7 @@ public enum Assets {
     public final AudioClip bigExplosion = getSound("explosion1.wav");
     public final AudioClip smallExplosion = getSound("explosion2.wav");
     public final AudioClip rocketHitShip = getSound("rocket.wav");
-    //public final AudioClip music = getSound("music.wav");
+    public final AudioClip music = getSound("spacemusic.mp3");
 
     // -------------- Connect classes or objects to images -----------------
 
