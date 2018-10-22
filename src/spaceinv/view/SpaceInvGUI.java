@@ -226,6 +226,7 @@ public class SpaceInvGUI extends Application {
         fg.setFill(Assets.INSTANCE.colorFgText);
         fg.setFont(Font.font(Assets.INSTANCE.fontSize));
         fg.fillText(String.valueOf(spaceInv.getPoints()), 50, 50);
+        fg.fillText(String.valueOf(spaceInv.getGunHealth()), 50, 70);
     }
 
     private void renderExplosion(double x, double y) {
