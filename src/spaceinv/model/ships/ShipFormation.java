@@ -1,6 +1,7 @@
 package spaceinv.model.ships;
 
 
+import spaceinv.model.IPositionable;
 import spaceinv.model.projectiles.Projectile;
 
 import java.util.List;
@@ -106,6 +107,15 @@ public class ShipFormation {
 
         for (AbstractSpaceShip ship : ships) {
             if (ship.isColliding(proj)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkCollision(IPositionable obj) {
+        for (AbstractSpaceShip ship : ships) {
+            if (ship.isColliding(obj)) {
                 return true;
             }
         }

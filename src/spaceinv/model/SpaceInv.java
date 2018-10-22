@@ -68,12 +68,15 @@ public class SpaceInv {
         moveGun();
         moveFormation();
 
-       outerLoop: for (int i = projectiles.size() - 1; i >= 0; i--) {
+        outerLoop:
+        for (int i = projectiles.size() - 1; i >= 0; i--) {
             projectiles.get(i).move();
 
             switch (projectiles.get(i).getSender()) {
                 case GUN:
-                    if (checkGunProjectile(i)){break outerLoop;}
+                    if (checkGunProjectile(i)) {
+                        break outerLoop;
+                    }
                     break;
                 case INVADER:
                     checkInvaderProjectile(i);
@@ -86,6 +89,8 @@ public class SpaceInv {
             return;
         } else if (formation.size() == 0) {
             gameState = GameState.WIN;
+        } else if (formation.checkCollision(ground)) {
+            gameState = GameState.LOSE;
         }
     }
 
