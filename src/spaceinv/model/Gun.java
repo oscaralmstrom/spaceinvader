@@ -33,7 +33,7 @@ public class Gun extends Movable {
         if (currentCooldown > 0) {
             return null;
         }
-        Projectile shot = new Rocket(getX(), getY(), senderType);
+        Projectile shot = new Rocket(getX() + getWidth() / 2 - 13.0 / 2, getY(), senderType);
 
         currentCooldown = maxCooldown;
 
