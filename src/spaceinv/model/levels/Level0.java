@@ -1,7 +1,6 @@
 package spaceinv.model.levels;
 
 
-
 import spaceinv.model.Gun;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.Bomber;
@@ -27,30 +26,22 @@ public class Level0 implements ILevel {
             addAll(
                     distribute(asList(null, 4), 5)
             );*/
-            // TODO replace null above with some ship
+    // TODO replace null above with some ship
 
     private final Ground ground = new Ground();
     private final OuterSpace outerspace = new OuterSpace();
     private final Gun gun = new Gun(GAME_WIDTH / 2, GAME_HEIGHT - 75);
-    private  List<AbstractSpaceShip>  shipsRow1, shipsRow2;
+    private List<AbstractSpaceShip> shipsRow1, shipsRow2;
     private final List<AbstractSpaceShip> ships;
 
-    public Level0()
-    {
+    public Level0() {
         //TODO move everything out of this constructor and make the variables final
         //Use the functions in LevelUtils
-        shipsRow1 = LevelUtils.asList(new Bomber(40,20),8);
-        shipsRow2 = LevelUtils.asList(new Frigate(40,60),6);
-        shipsRow1 = LevelUtils.distribute(shipsRow1,10);
+        shipsRow1 = LevelUtils.asList(new Bomber(40, 20), 8);
+        shipsRow2 = LevelUtils.asList(new Frigate(40, 60), 6);
+        shipsRow1 = LevelUtils.distribute(shipsRow1, 10);
         shipsRow2 = LevelUtils.distribute(shipsRow2, 10);
-        ships = LevelUtils.addAll(shipsRow1,shipsRow2);
-//        for (int i = 1; i<10; i++){
-//            if (i%2 == 1) {
-//                ships.add(new Bomber(40 * i + 10, 20));
-//            }else {
-//                ships.add(new Frigate(40 * i + 10, 20));
-//            }
-//        }
+        ships = LevelUtils.addAll(shipsRow1, shipsRow2);
     }
 
     @Override
@@ -70,6 +61,6 @@ public class Level0 implements ILevel {
 
     @Override
     public ShipFormation getFormation() {
-        return new ShipFormation(ships,2);
+        return new ShipFormation(ships, 2);
     }
 }
