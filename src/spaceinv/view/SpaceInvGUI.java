@@ -19,12 +19,8 @@ import spaceinv.event.Event;
 import spaceinv.event.EventService;
 import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
-import spaceinv.model.levels.ILevel;
-import spaceinv.model.levels.Level0;
+import spaceinv.model.levels.LevelN;
 import spaceinv.model.statics.OuterSpace;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 import static spaceinv.model.SpaceInv.GAME_HEIGHT;
 import static spaceinv.model.SpaceInv.GAME_WIDTH;
@@ -45,8 +41,8 @@ public class SpaceInvGUI extends Application {
 
     private SpaceInv spaceInv;          // Reference to the OO model
     private boolean running = false;    // Is game running?
-    private Deque<ILevel> levels = new ArrayDeque<>();
     private boolean leftPressed, rightPressed;
+    private int levelDiff = 1;
     // ------- Keyboard handling ----------------------------------
 
     private void keyPressed(KeyEvent event) {
@@ -121,13 +117,9 @@ public class SpaceInvGUI extends Application {
 
     private void newGame() {
 
-        levels.clear();
-        levels.push(new Level0());
-        levels.push(new Level0());
-
         //spaceInv = // TODO Create the OO model by using a Level parameter
 
-        spaceInv = new SpaceInv(levels.pop());
+        spaceInv = new SpaceInv(new LevelN(levelDiff++));
 
         renderBackground();
         timer.start();
@@ -156,10 +148,8 @@ public class SpaceInvGUI extends Application {
             case RUNNING:
                 break;
             case WIN:
-                if (!levels.isEmpty()) {
-                    spaceInv.newFormation(levels.pop().getFormation());
+                    spaceInv.newFormation(new LevelN(levelDiff++).getFormation());
                     break;
-                }
             case LOSE:
                 stopGame();
                 showResults();

@@ -17,19 +17,21 @@ public class ShipFormation {
     private final double PADDING_LEFT = 100;
     private final double PADDING_RIGHT = GAME_WIDTH - PADDING_LEFT;
     private final double DOWN_STEP;
-    private final static double chanceOfShooting = 0.01;
+    private final double chanceOfShooting;
 
     private static final Random rand = new Random();
     private final List<AbstractSpaceShip> ships;
     private Direction moveDir;
     private double speed;
-    private final double speedInc = 0.5;
+    private final double speedInc;
 
-    public ShipFormation(List<AbstractSpaceShip> ships, double startSpeed) {
+    public ShipFormation(List<AbstractSpaceShip> ships, double startSpeed, int diff) {
         this.ships = ships;
         DOWN_STEP = ships.get(0).getHeight();
         moveDir = Direction.RIGHT;
         speed = startSpeed;
+        speedInc = diff*0.2;
+        chanceOfShooting = diff * 0.01;
     }
 
     // TODO Some method to move the ships
