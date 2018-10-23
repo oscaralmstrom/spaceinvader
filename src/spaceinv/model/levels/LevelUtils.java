@@ -45,4 +45,11 @@ public final class LevelUtils {
         }
         return result;
     }
+    public static <T extends AbstractSpaceShip> List<AbstractSpaceShip> addAll(List<List<AbstractSpaceShip>> lists) {
+        List<AbstractSpaceShip> result = new ArrayList<>();
+        for (List<AbstractSpaceShip> i : lists) {
+            result.addAll(i);
+        }
+        return result;
+    }
 }

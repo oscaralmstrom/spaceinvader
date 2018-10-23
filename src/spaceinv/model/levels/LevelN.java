@@ -28,17 +28,24 @@ public class LevelN implements ILevel {
     private final Ground ground = new Ground();
     private final OuterSpace outerspace = new OuterSpace();
     private final Gun gun = new Gun(GAME_WIDTH / 2, GAME_HEIGHT - 75);
-    private List<List<AbstractSpaceShip>> shipRows;
-    private final List<AbstractSpaceShip> ships, shipsRow1, shipsRow2;
+    private final List<List<AbstractSpaceShip>> shipRows = new ArrayList<>();
+    private final List<AbstractSpaceShip> ships;
     private final int diff;
     private static final double spacing = 10;
 
     public LevelN(int diff) {
         //TODO move everything out of this constructor and make the variables final
         //Use the functions in LevelUtils
-        shipsRow1 = LevelUtils.distribute(LevelUtils.asList(new Bomber(40, 20), 3 * diff), spacing);
-        shipsRow2 = LevelUtils.distribute(LevelUtils.asList(new Frigate(40, 60), 2 * diff - 5 > 0 ? 2 * diff - 5 : 0), spacing);
-        ships = LevelUtils.addAll(shipsRow1, shipsRow2);
+
+        shipRows.add(LevelUtils.distribute(LevelUtils.asList(new Bomber(40, 20), diff < 4 ? 2 * diff : 8), spacing));
+        if (diff > 4) {
+            shipRows.add(LevelUtils.distribute(LevelUtils.asList(new Frigate(40, 60), diff < 8 ? 2 * (diff-4) : 8), spacing));
+        }
+        if (diff > 8) {
+            shipRows.add(LevelUtils.distribute(LevelUtils.asList(new Frigate(40, 100), diff < 12 ? (2 * diff-8) : 8), spacing));
+        }
+
+        ships = LevelUtils.addAll(shipRows);
         this.diff = diff;
     }
 
