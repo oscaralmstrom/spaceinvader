@@ -232,6 +232,8 @@ public class SpaceInv {
         return gameState;
     }
 
+    public int getGunHealth() { return gun.getHealth(); }
+
     public enum GameState {
         RUNNING, WIN, LOSE;
     }
